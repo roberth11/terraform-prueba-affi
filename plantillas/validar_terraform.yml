@@ -1,0 +1,5 @@
+steps:
+- script: |
+    terraform init
+    terraform validate
+  displayName: 'Validar Terraform'

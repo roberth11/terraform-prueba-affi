@@ -1,0 +1,6 @@
+steps:
+- script: |
+    terraform ini
+    terraform plan -out=tfplan -var="grupo_recursos_affi=$(grupo_recursos_affi)" -var="cuenta_almacenamiento_blob=$(cuenta_almacenamiento_blob)" -var="contenedor_blob=$(contenedor_blob)"
+    terraform apply tfplan
+  displayName: 'Aplicar cambios con Terraform'

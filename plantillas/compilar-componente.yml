@@ -1,0 +1,13 @@
+steps:
+- script: |
+    zip -r app.zip ./app/
+  displayName: 'Compilar Componente'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'ConexiónAzureAFFI'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az storage blob upload --account-name $(cuenta_almacenamiento_blob) --container-name $(contenedor_blob) --file app.zip --name app.zip      
+  displayName: 'Subir artefacto a Blob Storage'

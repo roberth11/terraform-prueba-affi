@@ -1,0 +1,40 @@
+trigger:
+- qatest
+
+parameters:
+  - name: grupo_recursos_affi         
+    type: string                       
+    default: 'grupo-recursos-affi'       
+
+  - name: cuenta_almacenamiento_blob     
+    type: string                       
+    default: 'cuentaalmacenamientoaffi'   
+
+  - name: contenedor_blob              
+    type: string                       
+    default: 'contenedoraffi'             
+
+stages:
+- stage: Validacion_Terraform          
+  jobs:
+  - job: Validar                      
+    pool:
+      vmImage: 'ubuntu-latest'        
+    steps:
+      - template: plantillas/validar_terraform.yml            
+
+- stage: Aplicacion_Terraform          
+  jobs:
+  - job: Aplicar                      
+    pool:
+      vmImage: 'ubuntu-latest'        
+    steps:
+      - template: plantillas/implementar_terraform.yml          
+
+- stage: Empaquetado_Artefacto         
+  jobs:
+  - job: Empaquetar                   
+    pool:
+      vmImage: 'ubuntu-latest'        
+    steps:
+      - template: plantillas/compilar-componente.yml       
